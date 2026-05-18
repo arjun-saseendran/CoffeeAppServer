@@ -52,7 +52,19 @@ func (os *orderService) UpdateOrder(id string, orderData *InputUpdateOrder) (*Or
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	os.db.Model(&updateOrder).Updates(Order{Name: orderData.Name, CoffeeName: orderData.CoffeeName, Size: orderData.Size})
+	updateData := Order{
+		Name:       orderData.Name,
+		CoffeeName: orderData.CoffeeName,
+	}
+	if orderData.Size != nil {
+		updateData.Size = *orderData.Size
+	}
+	result = os.db.Model(updateOrder).Updates(updateData)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
 	return updateOrder, nil
 }
 

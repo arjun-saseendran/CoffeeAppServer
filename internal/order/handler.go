@@ -49,7 +49,8 @@ func (handler *OrderHandler) GetOrders(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"err": "failed to get orders data"})
 		return
 	}
-	ctx.JSON(http.StatusOK, gin.H{"msg": "orders data fetched successfully", "data": allOrders})
+	// ctx.JSON(http.StatusOK, gin.H{"msg": "orders data fetched successfully", "data": allOrders})
+	ctx.JSON(http.StatusOK, allOrders)
 }
 
 func (handler *OrderHandler) GetOrder(ctx *gin.Context) {
